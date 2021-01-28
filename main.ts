@@ -1,12 +1,18 @@
+// Add Rover Functions to the on start block in order to control the robot.
 radio.onReceivedNumber(function (receivedNumber) {
     serial.writeNumber(receivedNumber)
 })
-/**
- * Scroll up for Radio Specific blocks
- */
-/**
- * Add Rover Functions to the on start block in order to control the robot.
- */
+// Scroll up for Radio Specific blocks
+function Convert (inputValue: number) {
+    let outputMin = 0
+    let inputMin = 0
+    inputMax = 1024
+    outputMax = 255
+    inputRange = inputMax - inputMin
+    outputRange = inputMax - inputMin
+    outputNumber = (inputValue - inputMin) / inputRange * outputRange + outputMin
+    return outputNumber
+}
 // These were for debugging. Feel free to delete them.
 input.onButtonPressed(Button.A, function () {
     radio.sendValue("X", 4.5)
@@ -26,12 +32,17 @@ serial.writeLine("" + (xValue))
         yValue = (<number>value);
     }
 })
+let outputNumber = 0
+let outputRange = 0
+let inputRange = 0
+let outputMax = 0
+let inputMax = 0
 let X = ""
 let xValue
-// The xValue Variable Should Receive the stick value 0-1024 
+// The xValue Variable Should Receive the stick value 0-1024
 xValue = 0
 let yValue
-// The xValue Variable Should Receive the stick value 0-1024 
+// The xValue Variable Should Receive the stick value 0-1024
 yValue = 0
 X = "X"
 radio.setGroup(1)
